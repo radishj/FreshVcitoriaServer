@@ -1,14 +1,25 @@
-var createError = require('http-errors');
+//var createError = require('http-errors');
+const bodyParser = require('body-parser');
 var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
+//var cookieParser = require('cookie-parser');
+//var logger = require('morgan');
+var cors = require('cors')
 var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+//app.use(logger('dev'));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: false }));
+//app.use(cookieParser());
+app.use(cors())
+//Application Gateways
+app.use('/product', require('./API_Gateways/Product'));
+app.use('/unittype', require('./API_Gateways/unittype'));
+app.use('/producttype', require('./API_Gateways/producttype'));
+app.use('/customer', require('./API_Gateways/Customer'));
+app.use('/city', require('./API_Gateways/City'));
+app.use('/sale', require('./API_Gateways/Sale'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

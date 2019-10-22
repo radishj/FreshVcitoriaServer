@@ -1,19 +1,21 @@
 'use strict';
 
+const config = require('../config/config');
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+console.log(config);
+
+const sequelize = new Sequelize(config.db.database, config.db.username, config.db.password,{
+  dialect: 'mysql',
+  host: config.db.host,
+  define:{
+    timestamps: false
+  }
+});
 
 fs
   .readdirSync(__dirname)
@@ -33,5 +35,34 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+//ASSOCIATIONS
+//UnitType
+db.unittype.hasMany(db.product);
+//Product
+db.product.belongsTo(db.unittype);
+//customers
+db.customers.belongsTo(db.city);
+//city
+db.city.hasMany(db.customers);
+db.city.belongsTo(db.area);
+//area
+db.area.hasMany(db.city);
+//mv_sale
+db.mv_sale.hasMany(db.orders);
+//orders
+db.orders.hasMany(db.order_item);
+db.orders.belongsTo(db.mv_sale);
+//order_item
+db.order_item.belongsTo(db.orders);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 module.exports = db;

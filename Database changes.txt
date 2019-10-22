@@ -1,0 +1,45 @@
+Changes:
+SHOW TABLE STATUS
+change all MyISAM engine into InnoDB : ALTER TABLE t ENGINE = InnoDB;
+Products:
+field WUnitType -> unittypeID
+
+customers:
+field CityID -> cityID
+change cityID to tinyint(4) Unsigned
+ALTER TABLE `customers`
+ADD FOREIGN KEY (cityID) 
+REFERENCES city(ID)
+Set 10 notNull to false
+
+city:
+AreaID -> areaID INT
+INSERT INTO `area` (`ID`, `Name`, `Date`, `Info`, `SaleIsOn`) VALUES ('3', '温哥华', '', '', '0');
+ALTER TABLE `city`
+ADD FOREIGN KEY (areaID) 
+REFERENCES area(ID)
+
+orders:
+Set 10 notNull to false
+SaleNo: INT10 unsigned
+ALTER TABLE `orders`
+ADD FOREIGN KEY (SaleNo) 
+REFERENCES mv_sale(Id)
+
+SELECT * FROM orders WHERE SaleNo NOT IN (SELECT Id FROM mv_sale)
+add Id 6(resturant) into mv_sale
+
+mv_sale:
+Set 10 notNull to false
+
+order_item:
+Set Info notNull to false
+ALTER TABLE `order_item` CHANGE `ProductId` `ProductId` INT(11) NOT NULL DEFAULT '0';
+DELETE FROM order_item WHERE ProductId NOT IN (SELECT PID FROM product)
+ALTER TABLE `order_item`
+ADD FOREIGN KEY (ProductId) 
+REFERENCES product(PID)
+ALTER TABLE `order_item` CHANGE `WUnitType` `WUnitType` INT(11) NOT NULL;
+ALTER TABLE `order_item`
+ADD FOREIGN KEY (WUnitType) 
+REFERENCES unittype(ID)
