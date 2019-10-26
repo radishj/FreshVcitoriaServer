@@ -38,9 +38,9 @@ db.Sequelize = Sequelize;
 
 //ASSOCIATIONS
 //UnitType
-db.unittype.hasMany(db.product);
+db.unittype.hasMany(db.product,{foreignKey: 'WUnitType'});
 //Product
-db.product.belongsTo(db.unittype);
+db.product.belongsTo(db.unittype,{foreignKey: 'WUnitType'});
 //customers
 db.customers.belongsTo(db.city);
 //city
@@ -49,10 +49,10 @@ db.city.belongsTo(db.area);
 //area
 db.area.hasMany(db.city);
 //mv_sale
-db.mv_sale.hasMany(db.orders);
+db.mv_sale.hasMany(db.orders,{foreignKey: 'SaleNo'});
 //orders
 db.orders.hasMany(db.order_item);
-db.orders.belongsTo(db.mv_sale);
+db.orders.belongsTo(db.mv_sale,{foreignKey: 'SaleNo'});
 //order_item
 db.order_item.belongsTo(db.orders);
 

@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize")
-const db = require('../models');
 const OP = Sequelize.Op;
+const db = require('../models');
 
-async function AllProducts(){
+async function AllProducts(res){
     const unittypes = await db.unittype.findAll();
     let products = await db.product.findAll({
         where: {
@@ -20,7 +20,7 @@ async function AllProducts(){
     }).then(products => {
         //console.log(products);
         products.forEach(e => {
-            ut = unittypes.filter(ut=>{return ut.ID==e.unittypeID});
+            ut = unittypes.filter(ut=>{return ut.ID==e.WUnitType});
             if(ut.length==1){
                 e.dataValues.unittypeName = ut[0].ChName;
             }
@@ -28,8 +28,7 @@ async function AllProducts(){
                 e.dataValues.unittypeName = 'Unknown';
             }
         });
-        console.log("success!")
-        return products;
+        res.send(products);
     })
     .catch(err => {
         console.log("error: " + err)
@@ -39,6 +38,20 @@ async function AllProducts(){
 
 }; 
 
+function UpdateQty(productID, consumedQty, res){
+    db.product.update({ 
+        StockQty: Sequelize.literal('StockQty - ' + consumedQty)
+    },  
+    {
+        where: { PID: productID }
+    })
+    .then(result =>
+        res.send(result)
+    )
+    .catch(err =>
+        res.send(err)
+    );
+}
 module.exports = {
-    AllProducts
+    AllProducts, UpdateQty
 };

@@ -1,15 +1,24 @@
+const Sequelize = require("sequelize")
+const OP = Sequelize.Op;
 const db = require('../models');
 
-async function LastSale(){
-    const order = await db.mv_sale.findOne({
+function Last2Sales(areaType, res){
+    db.mv_sale.findAll({
+        where:{
+            AreaType: {[OP.gte]: areaType}
+        },
         order: [
-            ['Id', 'DESC']]
-    });
-    if(order) return order;
-
-    return false;
+            ['Id', 'DESC']],
+        limit : 2
+    }).then(
+        sales => {
+            res.send(sales);
+        },
+        error => {
+            res.send('Error:' + error);
+        });
 }; 
 
 module.exports = {
-    LastSale
+    Last2Sales
 };

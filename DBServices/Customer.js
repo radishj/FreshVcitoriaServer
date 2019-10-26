@@ -1,7 +1,7 @@
 const db = require('../models');
 
-async function GetCustomer(phone){
-    const customer = await db.customers.findOne({
+async function GetCustomer(phone, res){
+    db.customers.findOne({
         where:{
             Phone:phone
         },
@@ -9,8 +9,14 @@ async function GetCustomer(phone){
             model: db.city,
             include:[db.area]
         }]
-    });
-    return customer;
+    }).then(
+        customer=>{
+            res.send(customer);
+        },
+        error=>{
+            res.send(error);
+        }
+    );
 }; 
 
 async function UpdateAddress(phone, address, res, next){

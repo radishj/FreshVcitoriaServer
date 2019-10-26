@@ -45,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.FLOAT,
 			allowNull: false
 		},
-		unittypeID: {
+		WUnitType: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			references: {

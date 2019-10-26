@@ -1,8 +1,10 @@
+https://www.thepolyglotdeveloper.com/2019/07/getting-started-vuejs-navigation-guards-restrict-access-routes/
+
 Changes:
 SHOW TABLE STATUS
 change all MyISAM engine into InnoDB : ALTER TABLE t ENGINE = InnoDB;
 Products:
-field WUnitType -> unittypeID
+
 
 customers:
 field CityID -> cityID
@@ -28,6 +30,8 @@ REFERENCES mv_sale(Id)
 
 SELECT * FROM orders WHERE SaleNo NOT IN (SELECT Id FROM mv_sale)
 add Id 6(resturant) into mv_sale
+
+change 
 
 mv_sale:
 Set 10 notNull to false

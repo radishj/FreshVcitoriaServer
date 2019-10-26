@@ -67,7 +67,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		ModifiedBy: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		UID: {
 			type: DataTypes.INTEGER(10).UNSIGNED,

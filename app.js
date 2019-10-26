@@ -20,6 +20,8 @@ app.use('/producttype', require('./API_Gateways/producttype'));
 app.use('/customer', require('./API_Gateways/Customer'));
 app.use('/city', require('./API_Gateways/City'));
 app.use('/sale', require('./API_Gateways/Sale'));
+app.use('/order', require('./API_Gateways/Order'));
+app.use('/orderitem', require('./API_Gateways/OrderItem'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

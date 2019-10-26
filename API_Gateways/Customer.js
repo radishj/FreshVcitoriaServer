@@ -5,15 +5,7 @@ const router = express.Router();
 const C = require('../DBServices/Customer');
 router.get("/:phone_number",async function(req, res, next) {
     var phone = req.params.phone_number;
-    customer = await C.GetCustomer(phone);
-    if(customer)
-    {
-        res.send(customer);
-    }
-    else
-    {
-        res.send("Error: no customer has phone:"+phone);
-    }
+    C.GetCustomer(phone, res);
 });
 
 router.post("/",async function(req, res, next) {
