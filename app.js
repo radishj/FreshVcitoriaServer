@@ -15,8 +15,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors())
 //Application Gateways
 app.use('/product', require('./API_Gateways/Product'));
-app.use('/unittype', require('./API_Gateways/unittype'));
-app.use('/producttype', require('./API_Gateways/producttype'));
+app.use('/unittype', require('./API_Gateways/UnitType'));
+app.use('/producttype', require('./API_Gateways/ProductType'));
 app.use('/customer', require('./API_Gateways/Customer'));
 app.use('/city', require('./API_Gateways/City'));
 app.use('/sale', require('./API_Gateways/Sale'));
