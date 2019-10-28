@@ -47,3 +47,9 @@ ALTER TABLE `order_item` CHANGE `WUnitType` `WUnitType` INT(11) NOT NULL;
 ALTER TABLE `order_item`
 ADD FOREIGN KEY (WUnitType) 
 REFERENCES unittype(ID)
+
+
+serve -l tcp://mediavictoria.com:6060 -s dist &
+ps -ef | grep mediavictoria
+
+sudo semanage port -a -t http_port_t -p tcp 8090

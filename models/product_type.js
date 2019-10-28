@@ -14,6 +14,14 @@ module.exports = function(sequelize, DataTypes) {
 		DiscountPercentage: {
 			type: DataTypes.INTEGER(4),
 			allowNull: false
+		},
+		isShown: {
+			type: DataTypes.INTEGER(1),
+			allowNull: false
+		},
+		sortWeight: {
+			type: DataTypes.INTEGER(6),
+			allowNull: false
 		}
 	}, {
 		tableName: 'product_type'

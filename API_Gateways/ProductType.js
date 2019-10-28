@@ -7,7 +7,6 @@ router.get("/",async function(req, res, next) {
     ProductTypes = await AllProductTypes();
     if(ProductTypes)
     {
-
         res.send(ProductTypes);
         console.log(ProductTypes);
     }
