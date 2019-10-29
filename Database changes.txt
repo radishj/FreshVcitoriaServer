@@ -53,3 +53,4 @@ serve -l tcp://mediavictoria.com:6060 -s dist &
 ps -ef | grep mediavictoria
 
 sudo semanage port -a -t http_port_t -p tcp 8090
+sudo fuser -k 80/tcp 

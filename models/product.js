@@ -1,5 +1,5 @@
 /* jshint indent: 1 */
-
+const Sequelize = require("sequelize")
 module.exports = function(sequelize, DataTypes) {
 	return sequelize.define('product', {
 		PID: {
@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false
 		},
 		Unit: {
-			type: DataTypes.FLOAT,
+			type: DataTypes.DECIMAL,
 			allowNull: false
 		},
 		WUnitType: {
@@ -147,7 +147,8 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.TEXT,
 			allowNull: false
 		}
-	}, {
+	}, 
+	{
 		tableName: 'product'
 	});
 };
