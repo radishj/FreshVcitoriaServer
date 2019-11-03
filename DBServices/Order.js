@@ -2,7 +2,7 @@ const Sequelize = require("sequelize")
 const OP = Sequelize.Op;
 const db = require('../models');
 
-async function orderPS(phone, saleID, res){
+function orderPS(phone, saleID, res){
     db.orders.findOne({
         where:{
             SaleNo: saleID,
@@ -18,15 +18,20 @@ async function orderPS(phone, saleID, res){
     });
 }; 
 
-async function Create(phone, saleID, info, isDelivery, discount, total, res){
-    await db.orders.create(
+function Delete(ID){
+    db.sequelize.query("CALL OrderRemove("+ID+")");
+}
+
+function Create(phone, saleID, info, isDelivery, discount, total, time, res){
+    db.orders.create(
         {
             phone_number: phone,
             SaleNo: saleID,
             Info: info,
             IsDelivery: isDelivery,
             DiscountPercentage: discount,
-            Total: total
+            Total: total,
+            UpdateTime: time
         }
     ).then(
         function( newOrder){
@@ -39,5 +44,5 @@ async function Create(phone, saleID, info, isDelivery, discount, total, res){
     )
 }; 
 module.exports = {
-    orderPS, Create
+    orderPS, Create, Delete
 };

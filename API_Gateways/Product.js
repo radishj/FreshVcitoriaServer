@@ -13,4 +13,9 @@ router.post("/stockqty", function(req, res, next) {
     P.UpdateQty(pid, consumedQty, res);
 })
 
+router.post("/products", function(req, res, next) {
+    var products = JSON.parse(req.body.IDs);
+    P.Products(products, res);
+})
+
 module.exports = router;

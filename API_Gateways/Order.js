@@ -10,6 +10,11 @@ router.get("/ps/:phone_number/:saleNo",async function(req, res, next) {
     O.orderPS(phone_number, saleNo, res);
 });
 
+router.post("/delete",async function(req, res) {
+    var ID = req.body.ID;
+    O.Delete(ID, res);
+})
+
 router.post("/new",async function(req, res) {
     //var phone = req.params.phone;
     //var address = req.params.address;
@@ -20,7 +25,8 @@ router.post("/new",async function(req, res) {
     var isDelivery = req.body.isDelivery;
     var discount = req.body.discount;
     var total = req.body.total;
-    O.Create(phone, saleID, info, isDelivery, discount, total, res);
+    var time = req.body.time;
+    O.Create(phone, saleID, info, isDelivery, discount, total, time, res);
 })
 
 module.exports = router;

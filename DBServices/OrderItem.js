@@ -1,20 +1,21 @@
 const Sequelize = require("sequelize")
 const OP = Sequelize.Op;
 const db = require('../models');
-/*
-async function ordersItems(phone, saleID){
-    const orders = await db.order_item.findAll({
-        where:{
-            SaleNo: saleID,
-            phone_number: phone
-        },
-        order: [
-            ['Id', 'DESC']],
-    });
-    if(orders) return orders;
 
-    return false;
-}; */
+function orderItems(orderID, res){
+    db.order_item.findAll({
+        where:{
+            OrderNo: orderID,
+        },
+        order: [['ProductId']]
+    }).then(
+        result => {
+            res.send(result);
+        }
+    ).catch(err => {
+        console.error('Error in orderItems DB:', err);
+      });
+}; 
 
 function Create(orderNo, productID, unitPrice, UnitWeight, orderedQty, unit, qty, info, wUnitType, res){
     db.order_item.create(
@@ -41,5 +42,5 @@ function Create(orderNo, productID, unitPrice, UnitWeight, orderedQty, unit, qty
     )
 }; 
 module.exports = {
-    Create
+    Create,orderItems
 };

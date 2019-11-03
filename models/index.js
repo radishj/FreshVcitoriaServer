@@ -51,10 +51,10 @@ db.area.hasMany(db.city);
 //mv_sale
 db.mv_sale.hasMany(db.orders,{foreignKey: 'SaleNo'});
 //orders
-db.orders.hasMany(db.order_item);
+db.orders.hasMany(db.order_item,{foreignKey: 'OrderNo'});
 db.orders.belongsTo(db.mv_sale,{foreignKey: 'SaleNo'});
 //order_item
-db.order_item.belongsTo(db.orders);
+db.order_item.belongsTo(db.orders,{foreignKey: 'OrderNo'});
 
 sequelize
   .authenticate()

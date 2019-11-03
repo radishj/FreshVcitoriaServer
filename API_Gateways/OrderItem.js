@@ -4,19 +4,10 @@ const router = express.Router();
 //const validate = require('validate.js');
 const O = require('../DBServices/OrderItem');
 
-/*router.get("/ps/:phone_number/:saleNo",async function(req, res, next) {
-    var phone_number = req.params.phone_number;
-    var saleNo = req.params.saleNo;
-    orders = await O.ordersPS(phone_number, saleNo);
-    if(orders)
-    {
-        res.send(orders);
-    }
-    else
-    {
-        res.send("Error: cannot find matching orders.");
-    }
-});*/
+router.get("/:orderID",async function(req, res, next) {
+    var orderID = req.params.orderID;
+    O.orderItems(orderID, res);
+ });
 
 router.post("/new",async function(req, res) {
     //var phone = req.params.phone;
